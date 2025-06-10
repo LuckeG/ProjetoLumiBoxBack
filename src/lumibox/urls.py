@@ -17,8 +17,13 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import include, path
+from django.http import HttpResponse
+
+def home(request):
+    return HttpResponse("Bem-Vindo à API LumiBox <3")
 
 urlpatterns = [
+    path('', home),
     path("admin/", admin.site.urls),
     path('api_lb/', include('api_lb.urls')),
 ]
