@@ -16,7 +16,7 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import include, path, re_path
 from django.http import HttpResponse
 
 def home(request):
@@ -26,4 +26,8 @@ urlpatterns = [
     path('', home),
     path("admin/", admin.site.urls),
     path('api_lb/', include('api_lb.urls')),
+    re_path(r"^auth/", include("djoser.urls")),
+    re_path(r"^auth/", include("djoser.urls.jwt")),
 ]
+
+
