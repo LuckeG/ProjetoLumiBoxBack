@@ -4,7 +4,7 @@ from api_lb.views import UsuarioViewSet
 
 router = routers.DefaultRouter()
 
-router.register(r"usuarios", UsuarioViewSet)
+router.register(r'auth/user', UsuarioViewSet, basename='user')
 
 urlpatterns = [
     path("", include(router.urls)),

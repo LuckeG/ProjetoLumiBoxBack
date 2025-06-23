@@ -25,7 +25,7 @@ def home(request):
 urlpatterns = [
     path('', home),
     path("admin/", admin.site.urls),
-    path('api_lb/', include('api_lb.urls')),
+    path('', include('api_lb.urls')),
     re_path(r"^auth/", include("djoser.urls")),
     re_path(r"^auth/", include("djoser.urls.jwt")),
 ]
