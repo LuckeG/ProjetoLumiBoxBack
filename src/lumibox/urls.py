@@ -28,6 +28,7 @@ urlpatterns = [
     path('', include('api_lb.urls')),
     re_path(r"^auth/", include("djoser.urls")),
     re_path(r"^auth/", include("djoser.urls.jwt")),
+    path('api/', include('api_lb.urls')),
 ]
 
 
