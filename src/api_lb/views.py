@@ -2,7 +2,7 @@ from rest_framework import viewsets, filters
 from .models import Usuario
 from .serializers import UsuarioSerializer
 from django.shortcuts import render
-from .services.tmdb import get_popular_movies, search_movie, get_popular_series, search_series, get_movie_genres, get_movies_by_genre, get_series_genres, get_series_by_genre
+from .services.tmdb import get_popular_movies, search_movie, get_popular_series, search_series, get_movie_genres, get_movies_by_genre, get_series_genres, get_series_by_genre, get_animes, get_reality_shows, get_movie_details, get_serie_details
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
@@ -18,7 +18,8 @@ class FilmesPopularesView(APIView):
     permission_classes = [AllowAny]
 
     def get(self, request):
-        filmes = get_popular_movies()
+        page = int(request.GET.get('page', 1))
+        filmes = get_popular_movies(page)
         return Response(filmes)
 
 class FilmesSearchView(APIView):
@@ -36,7 +37,8 @@ class SeriesPopularesView(APIView):
     permission_classes = [AllowAny]
 
     def get(self, request):
-        series = get_popular_series()
+        page = int(request.GET.get('page', 1))
+        series = get_popular_series(page)
         return Response(series)
 
 class SeriesSearchView(APIView):
@@ -78,6 +80,38 @@ class SeriesByGenreView(APIView):
     def get(self, request, genre_id):
         series = get_series_by_genre(genre_id)
         return Response(series)
+
+class AnimesView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        animes = get_animes()
+        return Response(animes)
+
+class RealitiesView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        realities = get_reality_shows()
+        return Response(realities)
+
+class FilmeDetailView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request, movie_id):
+        detalhes = get_movie_details(movie_id)
+        if detalhes: 
+            return Response(detalhes)
+        return Response({"error": "Filme não encontrado"}, status=status.HTTP_404_NOT_FOUND)
+
+class SerieDetailView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request, serie_id):
+        detalhes = get_serie_details(serie_id)
+        if detalhes:
+            return Response(detalhes)
+        return Response({"error": "Série não encontrada"}, status=staruus.HTTP_404_NOT_FOUND)
 
 # Create your views here.
 def home(request):
