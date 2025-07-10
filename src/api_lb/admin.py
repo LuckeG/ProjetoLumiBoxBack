@@ -1,12 +1,10 @@
 from django.contrib import admin
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 # Register your models here.
 
-from .models import Genero, Obra, Filme, Serie, Usuario
+from .models import Usuario, Indicacao
 
-
-admin.site.register (Genero)
-admin.site.register (Obra)
-admin.site.register (Filme)
-admin.site.register (Serie)
+admin.site.register (Indicacao)
 admin.site.register (Usuario)

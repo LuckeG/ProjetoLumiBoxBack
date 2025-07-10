@@ -1,39 +1,36 @@
 from rest_framework import serializers
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
-from .models import Usuario
-from .models import Obra
-from .models import Filme
-from .models import Serie
+#from .models import Usuario
+from .models import Indicacao, ListaUsuario
 
 
-class UsuarioSerializer(serializers.ModelSerializer):
+class DjangoUserSerializer(serializers.ModelSerializer):
+    foto = serializers.ImageField(required=False)
+
     class Meta:
-        model = Usuario
+        model = User
         fields = (
-            "nome",
+            "id",
+            "username",
             "email",
+            "password"
+            "foto"
         )
 
-class ObraSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Obra
-        fields = (
-            "titulo",
-            "descricao",
-            "ano_lancamento",
-        )
+class IndicacaoSerializer(serializers.ModelSerializer):
+    usuario = serializers.PrimaryKeyRelatedField(read_only=True)
+    usuario_destino = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
 
-class FilmeSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Filme
-        fields = (
-            "duracao"
-        )
+        model = Indicacao
+        fields = "__all__"
 
-class SerieSerializer(serializers.ModelSerializer):
+
+class ListaUsuarioSerializer(serializers.ModelSerializer):
+    usuario = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+    
     class Meta:
-        model = Serie
-        fields = (
-            "qtd_episodios",
-            "qtd_temporadas",
-        )
+        model = ListaUsuario
+        fields = '__all__'

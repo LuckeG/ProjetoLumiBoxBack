@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'api_lb',
     'djoser',
+    'rest_framework.authtoken'
 
 ]
 
@@ -89,6 +90,7 @@ REST_FRAMEWORK = {
     # or allow read-only access for unauthenticated users.
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
+        "rest_framework.authetication.TokenAuthentication"
     ],
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework_simplejwt.authentication.JWTAuthentication",
@@ -127,6 +129,9 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+AUTH_USER_MODEL = 'api_lb.Usuario'
+  # ou o nome do seu app + modelo
 
 
 # Internationalization
@@ -173,3 +178,7 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:4200',
     'http://127.0.0.1:4200'
 ]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+

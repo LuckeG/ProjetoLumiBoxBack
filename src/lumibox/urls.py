@@ -18,6 +18,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path, re_path
 from django.http import HttpResponse
+from api_lb.views import alterarSenha
 
 def home(request):
     return HttpResponse("Bem-Vindo à API LumiBox <3")
@@ -29,6 +30,7 @@ urlpatterns = [
     re_path(r"^auth/", include("djoser.urls")),
     re_path(r"^auth/", include("djoser.urls.jwt")),
     path('api/', include('api_lb.urls')),
+    path('api/alterar-senha/', alterarSenha.as_view(), name='alterar-senha'),
 ]
 
 

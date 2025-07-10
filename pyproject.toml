@@ -27,7 +27,9 @@ pre-commit = "^4.2.0"
 
 [tool.taskipy.tasks]
 qos = { cmd = "black src & isort src & pylint src", help = "Executa todas as ferramentas de qualidade de código."}
-dev = { cmd = "python manage.py runserver"}
+dev = { cmd = "python src/manage.py runserver"}
+mak = { cmd = "python src/manage.py makemigrations api_lb"}
+mig = { cmd = "python src/manage.py migrate"}
 
 [build-system]
 requires = ["poetry-core"]

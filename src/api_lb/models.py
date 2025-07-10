@@ -1,50 +1,25 @@
-from django.contrib.auth import get_user_model
 from django.db import models
+from django.contrib.auth.models import AbstractUser
+from django.conf import settings
+
 
 
 # Create your models here.
 
+class Indicacao(models.Model):
+	item_id = models.IntegerField()
+	usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+	usuario_destino = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='indicacoes_recebidas', null = True, blank = True)
+	data_criacao = models.DateTimeField(auto_now_add=True)
 
-class Genero(models.Model):
-	nome = models.CharField(max_length=30)
+class ListaUsuario(models.Model):
+	item_id = models.IntegerField()
+	usuario = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+	tipo = models.CharField(max_length=10)
+	data_adicao = models.DateTimeField(auto_now_add=True)
 
-	def __str__(self):
-		return f"{self.nome}"
-	
+class Usuario(AbstractUser):
+    foto = models.ImageField(upload_to='usuarios/fotos/', null=True, blank=True)
 
-class Obra(models.Model):
-	#Id_obra = models.IntegerField()
-	titulo = models.CharField(max_length=50)
-	descricao = models.CharField(max_length=60)
-	ano_lancamento = models.IntegerField()
-
-	#genero = models.ManyToManyField(
-		#Genero, blank=False,null=False
-	#)
-
-	def __str__(self):
-		return f"{self.titulo}"
-
-
-class Filme(models.Model):
-	duracao = models.IntegerField()
-
-	def __str__(self):
-		return f"{self.duracao}"
-
-
-class Serie(models.Model):
-	qtd_episodios = models.IntegerField()
-	qtd_temporadas = models.IntegerField()
-
-	def __str__(self):
-		return f"{self.qtd_episodios}"
-
-
-class Usuario(models.Model):
-	nome = models.CharField(max_length=30)
-	email = models.CharField(max_length=30)
-	senha = models.CharField(max_length=30)
-
-	def __str__(self):
-		return f"{self.nome}"
+    def __str__(self):
+        return self.username
