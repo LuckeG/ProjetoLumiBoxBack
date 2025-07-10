@@ -12,6 +12,7 @@ class UsuarioSerializer(serializers.ModelSerializer):
         fields = (
             "nome",
             "email",
+            "senha"
         )
 
 class ObraSerializer(serializers.ModelSerializer):
@@ -37,3 +38,8 @@ class SerieSerializer(serializers.ModelSerializer):
             "qtd_episodios",
             "qtd_temporadas",
         )
+
+
+
+    
+
